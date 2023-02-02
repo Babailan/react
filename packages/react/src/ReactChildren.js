@@ -34,7 +34,7 @@ function escape(key: string): string {
     '=': '=0',
     ':': '=2',
   };
-  const escapedString = key.replace(escapeRegex, function(match) {
+  const escapedString = key.replace(escapeRegex, function (match) {
     return escaperLookup[match];
   });
 
@@ -249,9 +249,9 @@ function mapChildren(
   if (children == null) {
     return children;
   }
-  const result = [];
+  const result: Array<React$Node> = [];
   let count = 0;
-  mapIntoArray(children, result, '', '', function(child) {
+  mapIntoArray(children, result, '', '', function (child) {
     return func.call(context, child, count++);
   });
   return result;
@@ -296,7 +296,8 @@ function forEachChildren(
 ): void {
   mapChildren(
     children,
-    function() {
+    // $FlowFixMe[missing-this-annot]
+    function () {
       forEachFunc.apply(this, arguments);
       // Don't return anything.
     },
